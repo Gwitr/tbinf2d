@@ -49,6 +49,12 @@
         "xhash": "cpp",
         "xtree": "cpp",
         "cctype": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "unordered_set": "cpp",
+        "functional": "cpp",
+        "optional": "cpp",
+        "variant": "cpp",
+        "deque": "cpp",
+        "stack": "cpp"
     }
 }

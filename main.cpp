@@ -9,6 +9,7 @@
 #endif
 
 #include "spritegroup.h"
+#include "logic.h"
 
 #define TARGET_FPS 60
 
@@ -27,6 +28,22 @@ double stabilize_fps(std::chrono::steady_clock::time_point timePoint1) {
 }
 
 int main_program() {
+    Logic::Node goal_node = Logic::Node::from_type("base/goal");
+    Logic::Node and_node = Logic::Node::from_type("gate/and");
+    Logic::Node c1_node = Logic::Node::from_type("constant/bool");
+    Logic::Node c2_node = Logic::Node::from_type("constant/bool");
+    goal_node.add_input(&and_node);
+    and_node.add_input(&c1_node);
+    and_node.add_input(&c2_node);
+
+    std::initializer_list<std::pair<bool, bool>> list = {{false, false}, {false, true}, {true, false}, {true, true}};
+    for (std::pair<bool, bool> pair : list) {
+        c1_node.value = pair.first;
+        c2_node.value = pair.second;
+        Logic::ValueType v = goal_node.resolve(nullptr);
+        std::cout << pair.first << " " << pair.second << " " << std::get<bool>(v) << std::endl;
+    }
+
     SDL_Window *window;
     SDL_Renderer *renderer;
 
